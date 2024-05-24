@@ -1,18 +1,31 @@
 #!/usr/bin/python3
+"""
+This module provides a function `matrix_divided` \
+    that divides all elements of a matrix.
+"""
+
+
 def matrix_divided(matrix, div):
     """
-    Divides all elements of a matrix by a divisor and returns a new matrix with the results.
+    Divides all elements of a matrix by a divisor
+    and returns a new matrix with the results.
 
     Parameters:
-    matrix (list of lists of int/float): The matrix to be divided. Each element in the matrix must be an integer or float.
-    div (int/float): The number by which each element in the matrix will be divided. Must be a non-zero integer or float.
+    matrix (list of lists of int/float): The matrix to be divided.
+    Each element in the matrix must be an integer or float.
+    div (int/float): The number by which each element in the matrix
+    will be divided.
+    Must be a non-zero integer or float.
 
     Returns:
-    list of lists of float: A new matrix with each element divided by the divisor, rounded to 2 decimal places.
+    list of lists of float: A new matrix with each element
+    divided by the divisor,
+    rounded to 2 decimal places.
 
     Raises:
-    TypeError: If the matrix is not a list of lists of integers/floats, if the rows of the matrix are not of the same size,
-               or if div is not an integer or float.
+    TypeError: If the matrix is not a list of lists of integers/floats,
+    if the rows of the matrix are not of the same size,
+    or if div is not an integer or float.
     ZeroDivisionError: If div is zero.
     OverflowError: If any element in the matrix is infinity or NaN.
     """
@@ -44,5 +57,4 @@ float infinity or NaN to integer")
 
 if __name__ == "__main__":
     import doctest
-
     doctest.testfile("tests/2-matrix_divided.txt")
