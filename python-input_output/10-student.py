@@ -42,5 +42,8 @@ class Student:
             A dictionary representation of the student's attributes.
         """
         if isinstance(attrs, list):
-            return {attr: getattr(self, attr) for attr in attrs if hasattr(self, attr)}
+            return {
+                attr: getattr(self, attr) for attr in attrs
+                if hasattr(self, attr)
+            }
         return self.__dict__
