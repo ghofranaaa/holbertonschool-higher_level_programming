@@ -7,7 +7,7 @@ import json
 
 
 def convert_csv_to_json(csv_filename):
-     """
+    """
     Convert CSV data to JSON format and write it to data.json.
 
     Parameters:
@@ -19,12 +19,12 @@ def convert_csv_to_json(csv_filename):
         True if the conversion was successful, False otherwise.
     """
     try:
-    with open(csv_filename, 'r') as csv_file:
-        csv_reader = csv.DictReader(csv_file)
-        data = [row for row in csv_reader]
+        with open(csv_filename, 'r') as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            data = [row for row in csv_reader]
         
-        with open('data.json', 'w') as json_f:
-            json.dump(data, json_f, indent=4)
+        with open('data.json', 'w') as json_file:
+            json.dump(data, json_file, indent=4)
             
         return True
     except Exception as e:
