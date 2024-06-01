@@ -2,20 +2,19 @@
 import csv
 import requests
 
-
-def fetch_and_print():
+def fetch_and_print_posts():
     """
-    Fetches all posts from json placeholder
+    Fetches all posts from json placeholder and prints their titles.
     """
     url = 'https://jsonplaceholder.typicode.com/posts'
     response = requests.get(url)
     
-    print(f'Status Code: {response.status.code}')
+    print(f'Status Code: {response.status_code}')
     if response.status_code == 200:
         posts = response.json()
 
-    for post in posts:
-        print(post['title'])
+        for post in posts:
+            print(post['title'])
 
 def fetch_and_save_posts():
     """
