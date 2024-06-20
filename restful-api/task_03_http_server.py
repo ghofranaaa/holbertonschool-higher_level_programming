@@ -20,7 +20,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         Responds with a greeting message at the root endpoint.
         Serves JSON data at the /data endpoint.
         Provides an OK status at the /status endpoint.
-        Returns a 404 Not Found for undefined endpoints without a message.
+        Returns a 404 Not Found for undefined endpoints.
         """
         # Check the requested path and respond accordingly
         if self.path == "/":
@@ -39,17 +39,18 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self.send_header("Content-type", "text/plain")
             self.end_headers()
             self.wfile.write(b"OK")
-        else:
-            self.send_response(404)  # HTTP status 404 Not Found
-            self.send_header("Content-type", "text/plain")
+        elif self.path == "/info":
+            self.send_response(200)  # HTTP status 200 OK
+            self.send_header("Content-type", "application/json")
             self.end_headers()
-
-        # For undefined endpoints, send an empty response body
-        if self.path not in ["/", "/data", "/status"]:
-            self.wfile.write(b"")  # Empty response body for 404
-
-        # Log the request
-        print(f"{self.client_address[0]} - - [{self.log_date_time_string()}] \"{self.command} {self.path} {self.request_version}\" {self.send_response(200)} -")
+            response = {
+                "version": "1.0",
+                "description": "A simple API built with http.server",
+            }
+            self.wfile.write(json.dumps(response).encode("utf-8"))
+        else:
+            self.send_error(404, "Endpoint not found")  # HTTP status 404 Not Found
+            
 
 def run(server_class=HTTPServer,
         handler_class=SimpleHTTPRequestHandler, port=8000):
@@ -61,6 +62,10 @@ def run(server_class=HTTPServer,
     param port: The port number to bind the server to.
     """
     server_address = ("localhost", port)  # Server address tuple
-    httpd = server_class(server_address, handler_class)  # Create server instance
+    httpd = server_class(server_address, handler_class)  # Create serv instance
     print(f"Starting httpd server on port {port}")  # Log the start of server
     httpd.serve_forever()  # Start the server
+
+
+if __name__ == "__main__":
+    run()  # Run the server if this script is executed directly
