@@ -1,0 +1,7 @@
+-- counting num of shows that has the same genre
+SELECT genres.title AS genre, COUNT(tv_show_genres.show_id) AS num_of_shows
+FROM genres
+JOIN tv_show_genres ON genres.id = tv_show_genres.genre_id
+GROUP BY genres.title
+HAVING COUNT(tv_show_genres.show) > 0
+ORDER BY num_of_shows DESC;
