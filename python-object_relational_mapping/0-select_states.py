@@ -1,33 +1,32 @@
 #!/usr/bin/python3
 """
-This module lists all states from a database.
-
-Args:
-	username
-	password
-    database name
+This script lists all states from the database.
 """
+
 import MySQLdb
 import sys
 
-
 if __name__ == "__main__":
-    username = sys.argv[1]
-    password = sys.argv[2]
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
     database_name = sys.argv[3]
 
-	db = MySQLdb.connect(host="localhost", port=3306, user=username,
-                     passwd=password, db=database_name)
+    conn = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=mysql_username,
+        passwd=mysql_password,
+        db=database_name,
+    )
 
-	cursor = db.cursor()
+    cur = conn.cursor()
 
-	cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    cur.execute("SELECT * FROM states ORDER BY id ASC")
 
-	states = cursor.fetchall()
+    query_rows = cur.fetchall()
 
-	for state in states:
-    	print(state)
+    for row in query_rows:
+        print(row)
 
-	cursor.close()
-
-	db.close()
+    cur.close()
+    conn.close()
