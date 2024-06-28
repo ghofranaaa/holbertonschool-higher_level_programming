@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Module Square """
+""" Module Sqaure """
 
 class Square:
     """ Square class defined by geometric shap
