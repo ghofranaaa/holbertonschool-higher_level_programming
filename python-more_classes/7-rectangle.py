@@ -22,8 +22,7 @@ class Rectangle:
     """
 
     number_of_instances = 0
-	print_symbol = '#'
-
+    print_symbol = '#'
 
     def __init__(self, width=0, height=0):
         """
@@ -117,7 +116,7 @@ class Rectangle:
         """
         if self.__width == 0 or self.__height == 0:
             return ""
-		symb = str(self.print_symbol)
+        symb = str(self.print_symbol)
         return ((symb * self.__width + "\n") * self.__height)[:-1]
 
     def __repr__(self):
