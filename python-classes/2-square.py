@@ -3,6 +3,7 @@
 This module defines a Square class with size validation.
 """
 
+
 class Square:
     """
     A class that defines a square.
