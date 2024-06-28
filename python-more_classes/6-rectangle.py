@@ -4,7 +4,6 @@ This module defines a class Rectangle \
 with private attributes width and height.
 """
 
-
 class Rectangle:
     """
     A class used to represent a Rectangle.
@@ -108,8 +107,8 @@ class Rectangle:
         Printing the rectangle
 
         Return:
-            A printed rectangle widh '#'
-            """
+            A printed rectangle with '#'
+        """
         if self.__width == 0 or self.__height == 0:
             return ""
         return (('#' * self.__width + "\n") * self.__height)[:-1]
@@ -123,8 +122,7 @@ class Rectangle:
 
     def __del__(self):
         """
-        Print a message when an instance is deleted
+        Printing a message when an instance is deleted
         """
-		Rectangle.number_of_instances -= 1
-
+        Rectangle.number_of_instances -= 1
         print("Bye rectangle...")
