@@ -1,10 +1,14 @@
 #!/usr/bin/python3
 """
-This script takes in an argument and displays all values in the states
+A script that takes in an argument and displays all values in the states \
     table of hbtn_0e_0_usa where name matches the argument.
+
+arguments :
+    mysql username: string
+    mysql password: string
+    database name: string
+    state name searched: string
 """
-
-
 import MySQLdb
 import sys
 
