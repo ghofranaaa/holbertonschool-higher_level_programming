@@ -8,8 +8,15 @@ from model_state import Base, State
 import sys
 
 
-def main(username, password, dbname):
-    engine = create_engine(f'mysql+mysqldb://{username}:{password}@localhost/{dbname}', echo=False)
+if __name__ == "__main__":
+    username = sys.argv[1]
+    passwd = sys.argv[2]
+    database_name = sys.argv[3]
+
+    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.format(
+        username, passwd, database_name), pool_pre_ping=True)
+    Base.metadata.create_all(engine)
+
     
     Session = sessionmaker(bind=engine)
     
