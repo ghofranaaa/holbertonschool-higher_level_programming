@@ -1,8 +1,12 @@
 #!/usr/bin/python3
+"""
+A script that lists all state class objects from the database hbtn_0e_6_usa.
+"""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from model_state import Base, State
 import sys
+
 
 def main(username, password, dbname):
     engine = create_engine(f'mysql+mysqldb://{username}:{password}@localhost/{dbname}', echo=False)
