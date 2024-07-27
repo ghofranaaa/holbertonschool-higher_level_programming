@@ -1,4 +1,5 @@
 import logging
+import sys
 
 
 def generate_invitations(template, attendees):
