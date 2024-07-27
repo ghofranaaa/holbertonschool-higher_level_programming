@@ -1,3 +1,6 @@
+import logging
+
+
 def generate_invitations(template, attendees):
     """
     Generates personalized invitation files from a template and a list of attendees.
