@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "Enter the name of the file:"
+read filename
+
+if [ -z "$filename" ]; then
+    echo "Filename cannot be empty."
+else   
+    echo "#!/usr/bin/python3" > $filename
+fi
+chmod u+x $filename

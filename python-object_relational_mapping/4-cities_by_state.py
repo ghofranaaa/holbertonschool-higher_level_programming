@@ -2,6 +2,8 @@
 """
 This script lists all the cities from the database hbtn_0e_4_usa.
 """
+
+
 import sys
 import MySQLdb
 

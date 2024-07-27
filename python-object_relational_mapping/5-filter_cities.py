@@ -3,6 +3,8 @@
 This script takes in the name of a state as an argument and lists all cities
 of a specific state, using the database hbtn_0e_4_usa.
 """
+
+
 import sys
 import MySQLdb
 
