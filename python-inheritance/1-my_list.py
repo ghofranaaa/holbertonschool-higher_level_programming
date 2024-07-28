@@ -1,16 +1,15 @@
 #!/usr/bin/python3
 
 """
-This module introduces a custom list class, MyList, which extends Python's built-in list capabilities.
-MyList includes a method to sort and print its contents in ascending order, assuming integer types.
-It also demonstrates the use of doctests for testing purposes.
+This module introduces a custom list class, MyList, which extends
+Python's built-in list capabilities.
 """
 
 
 class MyList(list):
     """
-    Inherits from Python's built-in list class and adds functionality to sort and print its items in ascending order.
-    All elements within the list are assumed to be integers.
+    Inherits from Python's built-in list class
+    and adds functionality to sort and print its items in ascending order.
     """
 
     def print_sorted(self):
