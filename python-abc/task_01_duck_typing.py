@@ -24,7 +24,6 @@ class Circle(Shape):
     def perimeter(self):
         return 2 * pi * self.radius
 
-
 class Rectangle(Shape):
     """Class representing a rectangle."""
 
@@ -38,12 +37,9 @@ class Rectangle(Shape):
     def perimeter(self):
         return 2 * (self.width + self.height)
 
-
 def shape_info(shape):
-
     print("Area:", shape.area())
     print("Perimeter:", shape.perimeter())
-
 
 if __name__ == "__main__":
     circle = Circle(radius=5)
