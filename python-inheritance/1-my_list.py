@@ -7,8 +7,6 @@ It also demonstrates the use of doctests for testing purposes.
 """
 
 
-import doctest
-
 class MyList(list):
     """
     Inherits from Python's built-in list class and adds functionality to sort and print its items in ascending order.
