@@ -9,7 +9,7 @@ class CountedIterator:
     def __next__(self):
         try:
             item = next(self.iterator)
-            self.count += 1
+            self.counter += 1
             return item
         except StopIteration:
             raise StopIteration("Empty")
