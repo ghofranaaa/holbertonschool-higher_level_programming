@@ -24,6 +24,8 @@ class BaseGeometry:
         Validates an integer value based on two conditions:
         it must be an integer, and it must be greater than zero.
         """
+		if isinstance(value, bool):
+            raise TypeError(f"{name} must be an integer")
         if not isinstance(value, int):
             raise TypeError(f"{name} must be an integer")
         elif value <= 0:
