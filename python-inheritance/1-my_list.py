@@ -12,12 +12,14 @@ class MyList(list):
     and adds functionality to sort and print its items in ascending order.
     """
 
+
     def print_sorted(self):
         """
         Sorts the list in ascending order and prints it.
         Ensures compatibility with integer types.
         """
         print(sorted(self))
+
 
 if __name__ == "__main__":
     doctest.testfile("tests/1-my_list.txt")
