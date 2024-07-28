@@ -11,4 +11,7 @@ class CountedIterator:
         try:
             return next(self.iterator)
         except StopIteration:
-            return self.counter
+            if self.counter > 0:
+                return self.counter
+            else:
+                raise StopIteration
