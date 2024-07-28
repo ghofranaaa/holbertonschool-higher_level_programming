@@ -1,3 +1,4 @@
+from math import pi
 from abc import ABC, abstractmethod
 
 class Shape(ABC):
@@ -10,16 +11,23 @@ class Shape(ABC):
         pass
 
 class Circle(Shape):
+    """Class representing a circle."""
+
     def __init__(self, radius):
+        if radius < 0:
+            raise ValueError("Radius must be non-negative")
         self.radius = radius
 
     def area(self):
-        return 3.14159 * self.radius ** 2
+        return pi * self.radius ** 2
 
     def perimeter(self):
-        return 2 * 3.14159 * self.radius
+        return 2 * pi * self.radius
+
 
 class Rectangle(Shape):
+    """Class representing a rectangle."""
+
     def __init__(self, width, height):
         self.width = width
         self.height = height
@@ -30,9 +38,16 @@ class Rectangle(Shape):
     def perimeter(self):
         return 2 * (self.width + self.height)
 
-def shape_info(shape):
-    print(f"Area: {shape.area()}")
-    print(f"Perimeter: {shape.perimeter()}")
 
-shape_info(circle)
-shape_info(rectangle)
+def shape_info(shape):
+
+    print("Area:", shape.area())
+    print("Perimeter:", shape.perimeter())
+
+
+if __name__ == "__main__":
+    circle = Circle(radius=5)
+    rectangle = Rectangle(width=4, height=7)
+
+    shape_info(circle)
+    shape_info(rectangle)
