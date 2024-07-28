@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-"""This module defines a utility function for looking up attributes and methods of an object.
+"""This module defines a utility function for looking up
+attributes and methods of an object.
 """
 
 def lookup(obj):
