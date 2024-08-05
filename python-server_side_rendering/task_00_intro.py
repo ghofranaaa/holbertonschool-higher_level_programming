@@ -1,7 +1,6 @@
 import logging
 import sys
 
-
 def generate_invitations(template, attendees):
     """
     Generates personalized invitation files from a template and a list of attendees.
@@ -12,13 +11,12 @@ def generate_invitations(template, attendees):
 
     Returns:
         None: Creates output files named output_X.txt (X is the index of the attendee).
-
     """
     if not isinstance(template, str):
         logging.error("Invalid input type: template must be a string.")
         sys.exit()
 
-    if not isinstance(attendees, list) and all(isinstance(att, dict) for att in attendees):
+    if not isinstance(attendees, list) or not all(isinstance(att, dict) for att in attendees):
         logging.error("Invalid input type: attendees must be a list of dictionaries.")
         sys.exit()
 
@@ -43,4 +41,4 @@ def generate_invitations(template, attendees):
         with open(output_filename, "w") as output_file:
             output_file.write(processed_template)
 
-        print(f"Invitation for {attendee['name']} saved to {output_filename}")
+        print(f"Invitation for {attendee.get('name', 'N/A')} saved to {output_filename}")
