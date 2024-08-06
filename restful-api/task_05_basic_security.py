@@ -1,46 +1,86 @@
 #!/usr/bin/python3
 """
-   function file for http.server
+This module contains a flask app with Basic and JWT Authentication.
 """
 
+from flask import Flask, jsonify, request
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
-import json
-from http.server import BaseHTTPRequestHandler, HTTPServer
+app = Flask(__name__)
 
+# Configuration
+app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'  # Change this to a strong secret key
+auth = HTTPBasicAuth()
+jwt = JWTManager(app)
 
-class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        if self.path == '/':
-            self._send_response(200, 'text/plain',
-                                b"Bonjour, ceci est une API simple!")
-        elif self.path == '/data':
-            data = {"name": "John", "age": 30, "city": "New York"}
-            self._send_response(200, 'application/json',
-                                json.dumps(data).encode())
-        elif self.path == '/status':
-            status = {"status": "OK"}
-            self._send_response(200, 'application/json',
-                                json.dumps(status).encode())
-        else:
-            error_message = {"error": "Endpoint not found"}
-            self._send_response(404, 'application/json',
-                                json.dumps(error_message).encode())
+# In-memory storage for users
+users = {
+    "user1": {"username": "user1", "password": generate_password_hash("password"), "role": "user"},
+    "admin1": {"username": "admin1", "password": generate_password_hash("adminpassword"), "role": "admin"}
+}
 
-    def _send_response(self, code, content_type, content):
-        self.send_response(code)
-        self.send_header('Content-type', content_type)
-        self.end_headers()
-        self.wfile.write(content)
+# Basic Authentication
+@auth.verify_password
+def verify_password(username, password):
+    user = users.get(username)
+    if user and check_password_hash(user['password'], password):
+        return user
 
+@app.route('/basic-protected')
+@auth.login_required
+def basic_protected():
+    return "Basic Auth: Access Granted"
 
-def run(server_class=HTTPServer,
-        handler_class=SimpleHTTPRequestHandler,
-        port=8000):
-    server_address = ('', port)
-    httpd = server_class(server_address, handler_class)
-    print(f'Démarrage du serveur HTTP sur le port {port}')
-    httpd.serve_forever()
+# JWT Authentication
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    user = users.get(username)
 
+    if user and check_password_hash(user['password'], password):
+        access_token = create_access_token(identity={"username": username, "role": user['role']})
+        return jsonify(access_token=access_token)
+    else:
+        return jsonify({"error": "Invalid credentials"}), 401
+
+@app.route('/jwt-protected')
+@jwt_required()
+def jwt_protected():
+    return "JWT Auth: Access Granted"
+
+@app.route('/admin-only')
+@jwt_required()
+def admin_only():
+    current_user = get_jwt_identity()
+    if current_user['role'] == 'admin':
+        return "Admin Access: Granted"
+    else:
+        return jsonify({"error": "Forbidden"}), 403
+
+# Custom Error Handlers for JWT
+@jwt.unauthorized_loader
+def handle_unauthorized_error(err):
+    return jsonify({"error": "Missing or invalid token"}), 401
+
+@jwt.invalid_token_loader
+def handle_invalid_token_error(err):
+    return jsonify({"error": "Invalid token"}), 401
+
+@jwt.expired_token_loader
+def handle_expired_token_error(err):
+    return jsonify({"error": "Token has expired"}), 401
+
+@jwt.revoked_token_loader
+def handle_revoked_token_error(err):
+    return jsonify({"error": "Token has been revoked"}), 401
+
+@jwt.needs_fresh_token_loader
+def handle_needs_fresh_token_error(err):
+    return jsonify({"error": "Fresh token required"}), 401
 
 if __name__ == "__main__":
-    run()
+    app.run(debug=True)
