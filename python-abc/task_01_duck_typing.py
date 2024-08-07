@@ -1,7 +1,14 @@
-from abc import ABC, abstractmethod
+#!/usr/bin/python3
+"""Define class with using library abc"""
 import math
+from abc import ABC, abstractmethod
+
 
 class Shape(ABC):
+    """
+    shape have two methods area and perimeter
+    inherit from class shape.
+    """
 
     @abstractmethod
     def area(self):
@@ -13,11 +20,15 @@ class Shape(ABC):
 
 
 class Circle(Shape):
-    def __init__(self, radius):
-        if radius < 0:
-            raise ValueError("Radius cannot be negative")
-        self.radius = radius
+    """
+    circle inherit from shape and calcul radius
+    """
 
+    def __init__(self, radius):
+        if isinstance(radius, (int, float)):
+            self.radius = abs(radius)
+        else:
+            raise TypeError("Radius must be a number")
     def area(self):
         return math.pi * self.radius ** 2
 
@@ -26,6 +37,10 @@ class Circle(Shape):
 
 
 class Rectangle(Shape):
+    """
+    rectangle inherit from shape define width and height
+    """
+
     def __init__(self, width, height):
         self.width = width
         self.height = height
@@ -38,9 +53,16 @@ class Rectangle(Shape):
 
 
 def shape_info(shape):
+    """
+    print area and perimeter
+    """
     print(f"Area: {shape.area()}")
     print(f"Perimeter: {shape.perimeter()}")
 
+
+if __name__ == "__main__":
+    circle = Circle(radius=5)
+    rectangle = Rectangle(width=4, height=7)
 
     shape_info(circle)
     shape_info(rectangle)
